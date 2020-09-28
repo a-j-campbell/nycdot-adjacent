@@ -67,25 +67,7 @@
                     }
                     fse_features[fse_no] = fse_feature
                 }
-            });
-			
-            var queryTask = new QueryTask({
-                url: bid_svc_url
-            });
-            var query = new Query();
-            query.returnGeometry = false;
-            query.outFields = [bid_svc_column];
-            query.where = bid_svc_filter; 
-
-            queryTask.execute(query).then(function(results){
-
-                var bids = []
-                var is_valid = false
-
-                for (i = 0; i<results.features.length; i++) {
-                    bids.push(results.features[i].attributes[bid_svc_column])
-                }
-
+                
                 const survey123WebForm = new Survey123WebForm({
                     container: "survey123-webform",
                     clientId: "TcESsljyD6DG0IRA",
@@ -117,7 +99,7 @@
                     }
                 });
             });
-
+			
         })
     </script>
 </body>
