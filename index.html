@@ -28,7 +28,10 @@
     <script>
         require(["esri/tasks/QueryTask", "esri/tasks/support/Query", "esri/identity/IdentityManager"], 
         function(QueryTask, Query) {
-
+            // Information about service for existing applications
+            var app_svc_url = "https://services.arcgis.com/wmZOI9vyUBq1zTZx/ArcGIS/rest/services/NYC_Open_Restaurants_Application_View_Only_(for_Dashboard)/FeatureServer/0"
+            var app_svc_column = "FSE"
+            var app_svc_filter = "1=1"
             // Information about service for FSE validation
             var fse_svc_url = "https://services.arcgis.com/wmZOI9vyUBq1zTZx/arcgis/rest/services/fse_permits_view/FeatureServer/0"
             var fse_svc_column = "*"
@@ -39,6 +42,26 @@
             var fsevalidation_field_valid = {'fseNumberValidation':'Valid'}    // field to be updated, and value to set it to, if fse passes validation
             var fsevalidation_field_invalid = {'fseNumberValidation':'Invalid'} // field to be updated, and value to set it to, if fse fails validation
             // ================================================================================
+            
+            // Query to get all existing features
+            var appQueryTask = new QueryTask({
+                url: app_svc_url
+            });
+            var appquery = new Query();
+            var app_fse_list = []
+            appquery.returnGeometry = false;
+            appquery.outFields = [app_svc_column];
+            appquery.where = app_svc_filter;
+            
+            appQueryTask.execute(appquery).then(function(list){
+                len = list.features.length
+                console.info("Application list queried. Features queried: " + len)
+
+                for (i = 0; i < len; i++){
+                    fse_no = list.features[i].attributes[app_svc_column]
+                    app_fse_list.push(fse_no)
+                }
+            });
 
 			// Query to get list of all possible FSE values.
             var fseQueryTask = new QueryTask({
@@ -79,7 +102,7 @@
                         // is_valid is maintained
                         if (v.field == fse_form_field) {
                             if (v.value.length == fse_value_length){
-                                if (v.value in fse_features) {
+                                if (v.value in fse_features && app_fse_list.indexOf(v.value) < 0) {
                                     console.info("FSE Number has not been previously submitted and is valid.")
                                     console.info("FSE Info: " + v.value + "Name: " + fse_features[v.value]['restaurantName'])
                                     survey123WebForm.setQuestionValue(fsevalidation_field_valid)
@@ -90,8 +113,20 @@
                                     survey123WebForm.setQuestionValue({'bizStreetName' : fse_features[v.value]['bizStreetName']})
                                     survey123WebForm.setQuestionValue({'bizBoro' : fse_features[v.value]['bizBoro']})
                                     survey123WebForm.setQuestionValue({'bizZip' : fse_features[v.value]['bizZip']})
+                                } else if (v.value in fse_features && app_fse_list.indexOf(v.value) >= 0) {
+                                    console.info("FSE Number has been previously submitted and is valid.")
+                                    console.info("FSE Info: " + v.value + " Name: " + fse_features[v.value]['restaurantName'])
+                                    survey123WebForm.setQuestionValue(fsevalidation_field_valid)
+                                    survey123WebForm.setQuestionValue({'restaurantName' : fse_features[v.value]['restaurantName']})
+                                    survey123WebForm.setQuestionValue({'bizName' : fse_features[v.value]['bizName']})
+                                    survey123WebForm.setQuestionValue({'bizDBA' : fse_features[v.value]['bizName']})
+                                    survey123WebForm.setQuestionValue({'bizBldgNum' : fse_features[v.value]['bizBldgNum']})
+                                    survey123WebForm.setQuestionValue({'bizStreetName' : fse_features[v.value]['bizStreetName']})
+                                    survey123WebForm.setQuestionValue({'bizBoro' : fse_features[v.value]['bizBoro']})
+                                    survey123WebForm.setQuestionValue({'bizZip' : fse_features[v.value]['bizZip']})
+                                    survey123WebForm.setQuestionValue({'alreadyApplied' : 'yes'})
                                 } else {
-                                    console.info("FSE Number has not been previously submitted and is not valid.")
+                                    console.info("FSE Number is not valid.")
                                     survey123WebForm.setQuestionValue(fsevalidation_field_invalid)
                                 }
                             }
