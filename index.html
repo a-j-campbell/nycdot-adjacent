@@ -29,9 +29,10 @@
         require(["esri/tasks/QueryTask", "esri/tasks/support/Query", "esri/identity/IdentityManager", 'esri/tasks/Locator'], 
         function(QueryTask, Query, Locator) {
             // Information about geocoding service
-            var locator = new Locator({
-                url: "http://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer"
-            });
+            var geocode_svc_url = "http://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer"
+            // var locator = new Locator({
+            //     url: "http://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer"
+            // });
             // Information about service for existing applications
             var app_svc_url = "https://services.arcgis.com/wmZOI9vyUBq1zTZx/ArcGIS/rest/services/NYC_Open_Restaurants_Application_View_Only_(for_Dashboard)/FeatureServer/0"
             var app_svc_column = "FSE"
