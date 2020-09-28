@@ -27,7 +27,7 @@
     <div id="survey123-webform"></div>
     <script>
         require(["esri/tasks/QueryTask", "esri/tasks/support/Query", "esri/identity/IdentityManager", "esri/tasks/Locator"], 
-        function(QueryTask, Query, Locator) {
+        function(QueryTask, Query, IdentityManager, Locator) {
             // Information about service for existing applications
             var app_svc_url = "https://services.arcgis.com/wmZOI9vyUBq1zTZx/arcgis/rest/services/NYC_Open_Restaurants_Application_Adjacent_Validation/FeatureServer/0"
             var app_svc_column = "FSE"
@@ -44,9 +44,9 @@
             // ================================================================================
             
             // Setup locator for on-the-fly geocode
-            // var locator = new Locator({
-            //     url: "https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer"
-            // })
+            var locator = new Locator({
+                url: "https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer"
+            })
 
             // Query to get all existing features
             var appQueryTask = new QueryTask({
