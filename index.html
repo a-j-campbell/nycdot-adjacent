@@ -43,6 +43,11 @@
             var fsevalidation_field_invalid = {'fseNumberValidation':'Invalid'} // field to be updated, and value to set it to, if fse fails validation
             // ================================================================================
             
+            // Setup locator for on-the-fly geocode
+            var locator = new Locator({
+                url: "https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer"
+            })
+
             // Query to get all existing features
             var appQueryTask = new QueryTask({
                 url: app_svc_url
