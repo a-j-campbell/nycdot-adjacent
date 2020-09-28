@@ -26,8 +26,8 @@
 <body>
     <div id="survey123-webform"></div>
     <script>
-        require(["esri/tasks/QueryTask", "esri/tasks/support/Query", "esri/identity/IdentityManager"], 
-        function(QueryTask, Query) {
+        require(["esri/tasks/QueryTask", "esri/tasks/support/Query", "esri/identity/IdentityManager", "esri/tasks/Locator"], 
+        function(QueryTask, Query, Locator) {
             // Information about service for existing applications
             var app_svc_url = "https://services.arcgis.com/wmZOI9vyUBq1zTZx/arcgis/rest/services/NYC_Open_Restaurants_Application_Adjacent_Validation/FeatureServer/0"
             var app_svc_column = "FSE"
