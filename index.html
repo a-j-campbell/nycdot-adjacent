@@ -26,8 +26,8 @@
 <body>
     <div id="survey123-webform"></div>
     <script>
-        require(["esri/tasks/QueryTask", "esri/tasks/support/Query", "esri/identity/IdentityManager", "esri/tasks/Locator"], 
-        function(QueryTask, Query, IdentityManager, Locator) {
+        require(["esri/tasks/QueryTask", "esri/tasks/support/Query", "esri/identity/IdentityManager"], 
+        function(QueryTask, Query) {
             // Information about service for existing applications
             var app_svc_url = "https://services.arcgis.com/wmZOI9vyUBq1zTZx/arcgis/rest/services/NYC_Open_Restaurants_Application_Adjacent_Validation/FeatureServer/0"
             var app_svc_column = "FSE"
@@ -42,11 +42,6 @@
             var fsevalidation_field_valid = {'fseNumberValidation':'Valid'}    // field to be updated, and value to set it to, if fse passes validation
             var fsevalidation_field_invalid = {'fseNumberValidation':'Invalid'} // field to be updated, and value to set it to, if fse fails validation
             // ================================================================================
-            
-            // Setup locator for on-the-fly geocode
-            var locator = new Locator({
-                url: "https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer"
-            })
 
             // Query to get all existing features
             var appQueryTask = new QueryTask({
@@ -109,13 +104,6 @@
                             if (v.value.length == fse_value_length){
                                 if (v.value in fse_features) {
                                     var address = { "SingleLine" : fse_features[v.value]['bizStreetName'] + ", " + fse_features[v.value]['bizBoro'] + ", NY " + fse_features[v.value]['bizZip']}
-                                
-                                    locator.addressToLocations(address).then(function(response) {
-                                        response.forEach(function (result){
-                                            console.info("Geocoded Address Result: " + result)
-                                        });
-                                        //console.info("Geocoded Address Response: " + response)
-                                    });
 
                                     console.info("FSE Number is valid.")
                                     console.info("FSE Info: " + v.value + " Name: " + fse_features[v.value]['restaurantName'])
