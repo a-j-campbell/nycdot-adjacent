@@ -128,6 +128,9 @@
                             survey123WebForm.setQuestionValue({'submission_verify' : 'yes'})
                             console.info("Application already received for this FSE. Marking as already applied.")
                         }
+                        else {
+                            survey123WebForm.setQuestionValue({'submission_verify' : 'no'})
+                        }
                     }
                 });
             });
