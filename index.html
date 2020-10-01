@@ -124,10 +124,10 @@
                                 
                             }
                             if (app_fse_list.indexOf(v.value) >= 0) {
-                            survey123WebForm.setQuestionValue({'submission_verify' : 'yes'})
+                            survey123WebForm.setQuestionValue({'alreadyApplied' : 'yes'})
                             console.info("Application already received for this FSE. Marking as already applied.")
                             } else {
-                                survey123WebForm.setQuestionValue({'submission_verify' : 'no'})
+                                survey123WebForm.setQuestionValue({'alreadyApplied' : 'no'})
                                 console.info("Application is new.")
                             }
                         }
