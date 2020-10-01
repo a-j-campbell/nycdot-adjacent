@@ -126,6 +126,7 @@
                         }
                         if (app_fse_list.indexOf(v.value) >= 0) {
                             survey123WebForm.setQuestionValue({'submission_verify' : 'yes'})
+                            console.info("Application already received for this FSE. Marking as already applied.")
                         }
                     }
                 });
