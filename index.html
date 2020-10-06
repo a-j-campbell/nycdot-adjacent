@@ -95,7 +95,7 @@
                     container: "survey123-webform",
                     clientId: "kC3LdPudTY67vLfd",
                     portalUrl: "https://nycdot.maps.arcgis.com",
-                    itemId: "248a7896f05d4024a8751f83fd299986",
+                    itemId: "e626c3ee9d964ef0af80c328460cdaf6",
                     onQuestionValueChanged: (v) => {
                         // Event handler is called on any value change in any field. We are trying
                         // to minimize the calls to bids.indexOf() and .setQuetionValue - that is why 
@@ -124,8 +124,8 @@
                                 
                             }
                             if (app_fse_list.indexOf(v.value) >= 0) {
-                            survey123WebForm.setQuestionValue({'alreadyApplied' : 'yes'})
-                            console.info("Application already received for this FSE. Marking as already applied.")
+                                survey123WebForm.setQuestionValue({'alreadyApplied' : 'yes'})
+                                console.info("Application already received for this FSE. Marking as already applied.")
                             } else {
                                 survey123WebForm.setQuestionValue({'alreadyApplied' : 'no'})
                                 console.info("Application is new.")
