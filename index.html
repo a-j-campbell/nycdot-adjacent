@@ -143,7 +143,7 @@
                         if (v.field == 'TC_Final') {
                         // Determine and assign derivedSeating
                             var seatingSet = new Set(seating_choices)
-                            let derived = seatingSet.entries()[0]
+                            let derived = seating_choices[0]
                             if (seatingSet.size == 1) {
                                 survey123WebForm.setQuestionValue({'derivedSeating' : derived})
                             } else {
