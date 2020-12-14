@@ -140,16 +140,18 @@
                             seating_choices.append(v.value)
                             console.info("Seating choice selected: " + v.value + " Count: " + seating_choices.length)
                         }
+                        if (v.field == 'TC_Final') {
+                        // Determine and assign derivedSeating
+                            var seatingSet = new Set(seating_choices)
+                            if (seatingSet.size == 1) {
+                                survey123WebForm.setQuestionValue({'derivedSeating' : seatingSet[0]})
+                            } else {
+                                survey123WebForm.setQuestionValue({'derivedSeating' : 'both'})
+                            }
+                            console.info("Seating choice determined: " + seatingSet[0])
+                        }
                     }
                 });
-                // Determine and assign derivedSeating
-                var seatingSet = new Set(seating_choices)
-                if (seatingSet.size == 1) {
-                    survey123WebForm.setQuestionValue({'derivedSeating' : seatingSet[0]})
-                } else {
-                    survey123WebForm.setQuestionValue({'derivedSeating' : 'both'})
-                }
-                console.info("Seating choice determined: " + seatingSet[0])
             });
 			
         })
