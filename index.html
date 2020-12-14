@@ -146,10 +146,11 @@
                             let derived = seating_choices[0]
                             if (seatingSet.size == 1) {
                                 survey123WebForm.setQuestionValue({'derivedSeating' : derived})
+                                console.info("Seating choice determined: " + derived)
                             } else {
                                 survey123WebForm.setQuestionValue({'derivedSeating' : 'both'})
+                                console.info("Seating choice determined: both")
                             }
-                            console.info("Seating choice determined: " + derived)
                         }
                     }
                 });
