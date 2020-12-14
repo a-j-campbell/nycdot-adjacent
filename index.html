@@ -143,7 +143,7 @@
                     }
                 });
                 // Determine and assign derivedSeating
-                var seatingSet = Set(seating_choices)
+                var seatingSet = new Set(seating_choices)
                 if (seatingSet.size == 1) {
                     survey123WebForm.setQuestionValue({'derivedSeating' : seatingSet[0]})
                 } else {
