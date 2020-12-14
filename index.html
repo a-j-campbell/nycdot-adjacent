@@ -36,12 +36,17 @@
             var fse_svc_url = "https://services.arcgis.com/wmZOI9vyUBq1zTZx/arcgis/rest/services/fse_permits_view/FeatureServer/0"
             var fse_svc_column = "*"
             var fse_svc_filter = "1=1"
+            // Information about the alreadyApplied settings
+            var seating_form_field = 'seatingChoice'
             // Information about the form
             var fse_form_field = "FSE"
             var fse_value_length = 8 // number of characters that valid FSE number has
             var fsevalidation_field_valid = {'fseNumberValidation':'Valid'}    // field to be updated, and value to set it to, if fse passes validation
             var fsevalidation_field_invalid = {'fseNumberValidation':'Invalid'} // field to be updated, and value to set it to, if fse fails validation
             // ================================================================================
+
+            // Initialize empty seatingChoice list
+            var seating_choices = []
 
             // Query to get all existing features
             var appQueryTask = new QueryTask({
@@ -131,8 +136,20 @@
                                 console.info("Application is new.")
                             }
                         }
+                        if (v.field == seating_form_field) {
+                            seating_choices.append(v.value)
+                            console.info("Seating choice selected: " + v.value + " Count: " + seating_choices.length)
+                        }
                     }
                 });
+                // Determine and assign derivedSeating
+                var seatingSet = Set(seating_choices)
+                if (seatingSet.size == 1) {
+                    survey123WebForm.setQuestionValue({'derivedSeating' : seatingSet[0]})
+                } else {
+                    survey123WebForm.setQuestionValue({'derivedSeating' : 'both'})
+                }
+                console.info("Seating choice determined: " + seatingSet[0])
             });
 			
         })
